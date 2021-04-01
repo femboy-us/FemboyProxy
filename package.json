@@ -1,0 +1,36 @@
+{
+  "name": "femboyproxy",
+  "version": "1.0.0",
+  "description": "An NGINX-like reverse proxy made by femboys, for femboys (or anyone really.)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/femboy-us/FemboyProxy.git"
+  },
+  "keywords": [
+    "femboy",
+    "proxy",
+    "nginx",
+    "reverse-proxy",
+    "proxy",
+    "reverse"
+  ],
+  "author": "embed",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/femboy-us/FemboyProxy/issues"
+  },
+  "homepage": "https://github.com/femboy-us/FemboyProxy#readme",
+  "dependencies": {
+    "babel-register": "^6.26.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.6.2",
+    "glob": "^7.1.6",
+    "node-env-file": "^0.1.8"
+  }
+}
