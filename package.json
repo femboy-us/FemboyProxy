@@ -25,12 +25,15 @@
   },
   "homepage": "https://github.com/femboy-us/FemboyProxy#readme",
   "dependencies": {
-    "babel-register": "^6.26.0",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-http-proxy": "^1.6.2",
-    "glob": "^7.1.6",
-    "node-env-file": "^0.1.8"
+    "fs": "0.0.1-security",
+    "http": "0.0.1-security",
+    "http-proxy-middleware": "^1.1.0",
+    "jsonfile": "^6.1.0",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
   }
 }
