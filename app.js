@@ -72,9 +72,9 @@ app.all('*', (req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
-    
-});
+//app.use((req, res, next) => {
+//    
+//});
 
 app.get('*', (req, res, next) => {
     res.send('<h1 style="text-align: center;">Welcome to FemboyProxy</h1><h3 style="text-align: center;">You have not configured FemboyProxy correctly! If you do not know how, check out <a href="https://femboy.us/proxy">the webpage.</a></h3>');
