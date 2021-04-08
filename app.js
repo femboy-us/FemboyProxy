@@ -7,7 +7,9 @@ const JsonFile = require('jsonfile');
 const url = require('url');
 const fs = require('fs');
 const path = require('path');
+const { EWOULDBLOCK } = require('constants');
 const app = express();
+const proxy = httpProxy.createProxyServer({});
 
 const globalOptions = {};
 const proxyOptions = {};
@@ -25,6 +27,34 @@ if(!globalStat) {
     globalOptions.EXPERIMENTAL = global.experimental;
     globalOptions.WEBPANEL = global.webPanel;
 }
+function getProxyConfig(dir) {
+    const files = fs.readdirSync(path.join(process.cwd().toString(), dir));
+    for(const file of files) {
+        const stat = fs.lstatSync(path.join(process.cwd().toString(), dir, file));
+        if(stat.isDirectory()) {
+            getProxyConfig(path.join(dir, file));
+        }else{
+            
+            let conf = JsonFile.readFileSync(path.join(process.cwd().toString(), dir, file));
+            if(!conf.enabled) { logger.error(`${conf.domain[0]} is not enabled. Not loading.`); return; }
+            conf.domain.forEach(domain => {
+                try {
+                    proxyOptions[domain].secure = conf.secure;
+                    proxyOptions[domain].cors = conf.cors;
+                    if(conf.secure) {
+                        proxyOptions[domain].ssl.privatekey = conf.ssl.privatekey;
+                        proxyOptions[domain].ssl.publickey = conf.ssl.publickey;
+                    }
+                    proxyOptions[domain].target = conf.target;
+                } catch (e) {
+                    logger.error(`Your configuration in ${file} isn't configured correctly.`);
+                }
+            });
+            logger.success(`Successfully loaded ${conf.domain[0]}!`);
+        }
+    }
+}
+getProxyConfig('conf');
 
 
 // Express
@@ -72,9 +102,9 @@ app.all('*', (req, res, next) => {
     next();
 });
 
-//app.use((req, res, next) => {
-//    
-//});
+app.use((req, res, next) => {
+    
+});
 
 app.get('*', (req, res, next) => {
     res.send('<h1 style="text-align: center;">Welcome to FemboyProxy</h1><h3 style="text-align: center;">You have not configured FemboyProxy correctly! If you do not know how, check out <a href="https://femboy.us/proxy">the webpage.</a></h3>');
@@ -84,4 +114,5 @@ app.get('*', (req, res, next) => {
 
 app.listen(globalOptions.PORT, () => {
     logger.success(`FemboyProxy has started on port ${globalOptions.PORT}!`);
+    console.log(proxyOptions);
 });

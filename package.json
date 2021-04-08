@@ -30,6 +30,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "http": "0.0.1-security",
+    "http-proxy": "^1.18.1",
     "http-proxy-middleware": "^1.1.0",
     "jsonfile": "^6.1.0",
     "morgan": "^1.10.0",
